@@ -12,6 +12,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      oately: ["Oately", "sans-serif"]
+    },
+    colors: {
+      brand: '#52b0ff'
+    }
   },
   plugins: [],
 };

@@ -1,4 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* You can add global styles to this file, and also import other style files */
+
+
+@layer base {
+    @font-face {
+      font-family: 'Oately';
+      font-style: bold;
+      font-weight: 800;
+      font-display: swap;
+      src: url('./assets/Oately-Bold.woff2') format('woff2');
+    }
+  }
