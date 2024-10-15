@@ -15,11 +15,11 @@ async function encodeImage(imagePath: string): Promise<string> {
 function getPromptByType(type: string): string {
   switch (type) {
     case 'bankStatement':
-      return 'The following image is a bank statement from Mexico. Help me parse the information and return it in JSON format, without any new line chars. I need the Name, the Address, the CLABE, No. de Cuenta and R.F.C.. The output format should be a JSON with the following format: {"full_name": ..., "address": ..., "clabe": ..., "account":..., "rfc": ...}.';
+      return 'The following image is a Mexican bank statement. Help me parse the information and return it in JSON format, without any new line chars. I need the Name, the Address, the CLABE, No. de Cuenta and R.F.C.. The output format should be a JSON with the following format: {"full_name": ..., "address": ..., "clabe": ..., "account":..., "rfc": ...}.';
     case 'curp':
-      return 'The following image contains a CURP (Clave Única de Registro de Población) document from Mexico. Extract the CURP code, full name, date of birth, and place of birth. Return the information in JSON format without any new line characters. The output format should be: {"curp": ..., "full_name": ..., "date_of_birth": ..., "place_of_birth": ...}.';
-    case 'other':
-      return 'The following image contains a document. Please analyze its contents and extract any relevant information. Return the information in a JSON format without any new line characters. The output format should include keys for any important fields you identify.';
+      return 'The following image contains a CURP (Clave Única de Registro de Población) document from Mexico. Extract the CURP code, full name, date of birth, and place of birth. Return the information in JSON format without any new line characters. The output format should be: {"full_name": ..., "curp": ..., "date_of_birth": ...}.';
+    case 'proofOfAddress':
+      return 'The following image contains a Mexican proof of Address document. Extract full name, and address. Return the information in JSON format without any new line characters. The output format should be: {"full_name": ..., "address": ...}.';
     default:
       throw new Error('Unsupported document type');
   }
