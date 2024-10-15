@@ -4,6 +4,27 @@
   "sourceRoot": "libs/ai-scan/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project ai-scan --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/ai-scan",
+        "main": "libs/ai-scan/src/index.ts",
+        "tsConfig": "libs/ai-scan/tsconfig.json",
+        "assets": [
+          "libs/ai-scan/*.md"
+        ]
+      }
+    },
+    "run": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "ai-scan:build",
+        "watch": true
+      }
+    }
+  }
 }
