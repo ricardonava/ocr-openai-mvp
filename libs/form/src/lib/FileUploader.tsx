@@ -105,13 +105,13 @@ export function FileUploader({
                       type="file"
                       multiple
                       className="sr-only"
-                      {...register('files')} // Register is still used, but manual control happens with setValue
+                      {...register('files')}
                     />
                   </label>
                   <p className="pl-1">or drag and drop</p>
                 </div>
                 <p className="text-xs leading-5 text-gray-400">
-                  PNG, JPG, GIF up to 10MB
+                  PNG, JPG, JPEG up to 10MB
                 </p>
               </>
             )}

@@ -17,24 +17,24 @@ type UploadArgs = {
 export const useFileUploadMutation = () => {
   const [progress, setProgress] = useState(0); // Track overall upload progress
 
-  const mutation = useMutation<void, AxiosError, UploadArgs>(async (args) => {
-    const { presignedUploadUrl, files } = args;
+  const mutation = useMutation<void, AxiosError, UploadArgs>({
+    mutationFn: async ({ presignedUploadUrl, files }) => {
+      // Create a FormData object and append all files
+      const formData = new FormData();
+      Array.from(files).forEach((file) => {
+        formData.append('images', file); // 'files' key corresponds to your backend
+      });
 
-    // Create a FormData object and append all files
-    const formData = new FormData();
-    Array.from(files).forEach((file) => {
-      formData.append('images', file); // 'files' key corresponds to your backend
-    });
-
-    // Post all files in one request using FormData
-    await api.post(presignedUploadUrl, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      onUploadProgress: (ev) => {
-        setProgress(Math.round((ev.loaded * 100) / (ev.total || 0)));
-      },
-    });
+      // Post all files in one request using FormData
+      return api.post(presignedUploadUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (ev) => {
+          setProgress(Math.round((ev.loaded * 100) / (ev.total || 0)));
+        },
+      });
+    },
   });
 
   return { ...mutation, progress };
