@@ -1,5 +1,6 @@
 export const employees = [
   {
+    id: 1,
     user: {
       name: 'Elliot Alderson',
       imageUrl:
@@ -10,6 +11,7 @@ export const employees = [
     email: 'mrobot@evilcorp.com',
   },
   {
+    id: 2,
     user: {
       name: 'Lindsay Walton',
       imageUrl:
@@ -20,6 +22,7 @@ export const employees = [
     email: 'abc@example.com',
   },
   {
+    id: 3,
     user: {
       name: 'Courtney Henry',
       imageUrl:
@@ -30,6 +33,7 @@ export const employees = [
     email: 'abc@example.com',
   },
   {
+    id: 4,
     user: {
       name: 'Courtney Henry',
       imageUrl:
@@ -40,6 +44,7 @@ export const employees = [
     email: 'abc@example.com',
   },
   {
+    id: 5,
     user: {
       name: 'Michael Foster',
       imageUrl:
@@ -50,6 +55,7 @@ export const employees = [
     email: 'abc@example.com',
   },
   {
+    id: 6,
     user: {
       name: 'Courtney Henry',
       imageUrl:
@@ -60,6 +66,7 @@ export const employees = [
     email: 'abc@example.com',
   },
   {
+    id: 7,
     user: {
       name: 'Michael Foster',
       imageUrl:
@@ -70,6 +77,7 @@ export const employees = [
     email: 'abc@example.com',
   },
   {
+    id: 8,
     user: {
       name: 'Whitney Francis',
       imageUrl:

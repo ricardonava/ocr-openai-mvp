@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { employees } from '../mock/employees';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
 
 const statuses = {
   Completed: 'text-green-400 bg-green-400/10',
@@ -8,6 +9,10 @@ const statuses = {
 };
 
 export default function Example() {
+  const navigate = useNavigate();
+  const gotoUploadPage = (employeeId: number) =>
+    navigate(`/employee/${employeeId}`);
+
   return (
     <div className="bg-gray-900 ">
       <h2 className="px-4 text-base font-semibold leading-7 text-white sm:px-6 lg:px-8">
@@ -57,7 +62,7 @@ export default function Example() {
         </thead>
         <tbody className="divide-y divide-white/5">
           {employees.map((item) => (
-            <tr key={item.commit}>
+            <tr key={item.id}>
               <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
                 <div className="flex items-center gap-x-4">
                   <img
@@ -113,6 +118,7 @@ export default function Example() {
                   </div>
                 ) : (
                   <button
+                    onClick={() => gotoUploadPage(item.id)}
                     type="button"
                     className={classNames(
                       `block px-3 py-2 text-xs font-semibold text-center text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
