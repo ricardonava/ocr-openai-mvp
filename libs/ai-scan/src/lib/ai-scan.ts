@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import * as fs from 'fs';
+import _ from 'lodash';
 
 const openai = new OpenAI({
   apiKey:
@@ -12,14 +13,16 @@ async function encodeImage(imagePath: string): Promise<string> {
   return `data:image/png;base64,${base64Image}`;
 }
 
-function getPromptByType(type: string): string {
+type DocumentType = 'bankStatement' | 'curp' | 'proofOfAddress';
+
+function getPromptByType(type: DocumentType): string {
   switch (type) {
     case 'bankStatement':
-      return 'The following image is a bank statement from Mexico. Help me parse the information and return it in JSON format, without any new line chars. I need the Name, the Address, the CLABE, No. de Cuenta and R.F.C.. The output format should be a JSON with the following format: {"full_name": ..., "address": ..., "clabe": ..., "account":..., "rfc": ...}.';
+      return 'The following image is a Mexican bank statement. Parse the information and return it in JSON format without any new line characters. Extract the first name, last name, CLABE, No. de Cuenta, and R.F.C. The output should be: {"first_name": ..., "last_name": ..., "clabe": ..., "account": ..., "rfc": ...}.';
     case 'curp':
-      return 'The following image contains a CURP (Clave Única de Registro de Población) document from Mexico. Extract the CURP code, full name, date of birth, and place of birth. Return the information in JSON format without any new line characters. The output format should be: {"curp": ..., "full_name": ..., "date_of_birth": ..., "place_of_birth": ...}.';
-    case 'other':
-      return 'The following image contains a document. Please analyze its contents and extract any relevant information. Return the information in a JSON format without any new line characters. The output format should include keys for any important fields you identify.';
+      return 'The following image contains a CURP document from Mexico. Extract the CURP code, first name, last name, date of birth, and place of birth. Return the information in JSON format without any new line characters. The output should be: {"first_name": ..., "last_name": ..., "curp": ..., "date_of_birth": ..., "place_of_birth": ...}.';
+    case 'proofOfAddress':
+      return 'The following image contains a Mexican proof of address document. Extract the first name, last name, and address (including street, state, country, and PO box). Return the information in JSON format without any new line characters. The output should be: {"first_name": ..., "last_name": ..., "address": {"street": ..., "state": ..., "country": ..., "po_box": ...}}.';
     default:
       throw new Error('Unsupported document type');
   }
@@ -27,8 +30,8 @@ function getPromptByType(type: string): string {
 
 async function getParsedDocument(
   base64Image: string,
-  type: string
-): Promise<string> {
+  type: DocumentType
+): Promise<JsonObject> {
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
@@ -49,17 +52,47 @@ async function getParsedDocument(
       ],
     });
 
-    return JSON.parse(completion.choices[0]?.message?.content);
+    const response = JSON.parse(completion.choices[0]?.message?.content);
+
+    console.log('OpenAI response:', response);
+
+    return transformResponse(response);
   } catch (error) {
     console.error('Error in OpenAI:', error);
-    return 'Try again later';
+    return {};
   }
 }
 
+type JsonObject = {
+  [key: string]: never;
+};
+
+const transformResponse = (obj: JsonObject): JsonObject => {
+  const skipKeys = ['rfc', 'clabe', 'account', 'curp', 'dateOfBirth', 'poBox']; // Keys to skip transformation
+
+  return _.mapValues(
+    _.mapKeys(obj, (_value: never, key: never) => _.camelCase(key)),
+    (value: JsonObject, key: string) => {
+      if (skipKeys.includes(key)) {
+        return value; // Skip transformation for specified keys
+      }
+
+      if (_.isPlainObject(value)) {
+        return transformResponse(value); // Pass the skipKeys array to recursive calls
+      } else if (_.isString(value)) {
+        return _.startCase(_.toLower(value));
+      }
+
+      return value;
+    }
+  );
+};
+
+
 export async function aiScan(
   baseImage: string,
-  documentType: string
-): Promise<string> {
+  documentType: DocumentType
+): Promise<JsonObject> {
   return await getParsedDocument(baseImage, documentType);
 }
 
