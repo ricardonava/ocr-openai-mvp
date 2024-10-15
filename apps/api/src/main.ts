@@ -1,7 +1,7 @@
 import express, { Request } from 'express';
 import * as path from 'path';
 import multer from 'multer'; // For handling file uploads
-import { aiScan, encodeImage } from '@just-scan/ai-scan';
+import { aiScan, type DocumentType, encodeImage } from '@just-scan/ai-scan';
 import cors from 'cors';
 
 const app = express();
@@ -18,22 +18,18 @@ interface MulterRequest extends Request {
   files?: Express.Multer.File[];
 }
 
-function determineDocumentType(filename: string): string {
-  const patterns: { [key: string]: RegExp } = {
-    bankStatement: /bank[\s-_]?statement/i,
-    proofOfAddress: /proof[\s-_]?of[\s-_]?address/i,
-    curp: /curp/i
-  };
+function determineDocumentType(filename: string): DocumentType {
+  const lowercasedFilename = filename.toLowerCase();
 
-  // Loop through the patterns to find a match
-  for (const [documentType, regex] of Object.entries(patterns)) {
-    if (regex.test(filename)) {
-      return documentType; // Return the first matched document type
-    }
+  if (lowercasedFilename.includes('bankstatement')) {
+    return 'bankStatement';
+  } else if (lowercasedFilename.includes('curp')) {
+    return 'curp';
+  } else if (lowercasedFilename.includes('proofofaddress')) {
+    return 'proofOfAddress';
   }
 
-  // Default case if none match
-  return 'bankStatement'; // Set default document type
+  throw new Error('Unknown document type');
 }
 
 // handle OpenAI API call
@@ -43,16 +39,12 @@ async function uploadImagesAndGetResponse(
   try {
     const results = await Promise.all(
       pdfPaths.map(async (pdfPath) => {
-        // Extract the filename from the pdfPath
-    const filename = path.basename(pdfPath).toLowerCase(); // Convert to lowercase for uniform matching
+        // Use the more robust determineDocumentType function to categorize the file
+        const documentType = determineDocumentType(pdfPath);
 
-    // Use the more robust determineDocumentType function to categorize the file
-    const documentType = determineDocumentType(filename);
-
-      
         const imageEncoded = await encodeImage(pdfPath); // Encode each image
-        const result = await aiScan(imageEncoded, documentType); // Scan and get the result
-        return result; // Return the result for each PDF
+        // Scan and get the result
+        return await aiScan(imageEncoded, documentType); // Return the result for each PDF
       })
     );
 
