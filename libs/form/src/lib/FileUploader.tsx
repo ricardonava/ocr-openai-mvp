@@ -64,52 +64,54 @@ export function FileUploader({
           onDrop={handleDrop}
         >
           <div className="text-center">
-            <div className="mt-4 flex text-sm leading-6 text-gray-400">
-              <label
-                htmlFor="files"
-                className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
-              >
-                <span>Upload onboarding files</span>
-                <input
-                  id="files"
-                  type="file"
-                  multiple
-                  className="sr-only"
-                  {...register('files')} // Register is still used, but manual control happens with setValue
-                />
-              </label>
-              <p className="pl-1">or drag and drop</p>
-            </div>
-            <p className="text-xs leading-5 text-gray-400">
-              PNG, JPG, GIF up to 10MB
-            </p>
-
-            {files && files.length > 0 && (
-              <div className="mt-4 text-white">
-                <h4>Files selected:</h4>
-                {Array.from(files).map((file, index) => (
-                  <p key={index}>{file.name}</p>
-                ))}
-              </div>
+            {files && files.length > 0 ? (
+              <>
+                <div className="mt-4 text-white">
+                  {Array.from(files).map((file, index) => (
+                    <p key={index}>{file.name}</p>
+                  ))}
+                </div>
+                <div className="mt-4 flex justify-center space-x-4">
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    disabled={!files || files.length === 0}
+                  >
+                    Upload Files
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleClearFiles}
+                    className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                    disabled={!files}
+                  >
+                    Clear Files
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="mt-4 flex text-sm leading-6 text-gray-400">
+                  <label
+                    htmlFor="files"
+                    className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
+                  >
+                    <span>Upload onboarding files</span>
+                    <input
+                      id="files"
+                      type="file"
+                      multiple
+                      className="sr-only"
+                      {...register('files')} // Register is still used, but manual control happens with setValue
+                    />
+                  </label>
+                  <p className="pl-1">or drag and drop</p>
+                </div>
+                <p className="text-xs leading-5 text-gray-400">
+                  PNG, JPG, GIF up to 10MB
+                </p>
+              </>
             )}
-
-            <div className="mt-4 flex justify-center space-x-4">
-              <button
-                type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                disabled={!files || files.length === 0}
-              >
-                Submit Files
-              </button>
-              <button
-                type="button"
-                onClick={handleClearFiles}
-                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                disabled={!files}
-              >
-                Clear Files
-              </button>
-            </div>
           </div>
         </div>
       </div>
