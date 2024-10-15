@@ -12,7 +12,9 @@ async function encodeImage(imagePath: string): Promise<string> {
   return `data:image/png;base64,${base64Image}`;
 }
 
-function getPromptByType(type: string): string {
+type DocumentType = 'bankStatement' | 'curp' | 'proofOfAddress';
+
+function getPromptByType(type: DocumentType): string {
   switch (type) {
     case 'bankStatement':
       return 'The following image is a Mexican bank statement. Parse the information and return it in JSON format without any new line characters. Extract the first name, last name, address (with street, state, country, and PO box), CLABE, No. de Cuenta, and R.F.C. The output should be: {"first_name": ..., "last_name": ..., "address": {"street": ..., "state": ..., "country": ..., "po_box": ...}, "clabe": ..., "account": ..., "rfc": ...}.';
@@ -27,7 +29,7 @@ function getPromptByType(type: string): string {
 
 async function getParsedDocument(
   base64Image: string,
-  type: string
+  type: DocumentType
 ): Promise<string> {
   try {
     const completion = await openai.chat.completions.create({
@@ -58,7 +60,7 @@ async function getParsedDocument(
 
 export async function aiScan(
   baseImage: string,
-  documentType: string
+  documentType: DocumentType
 ): Promise<string> {
   return await getParsedDocument(baseImage, documentType);
 }
