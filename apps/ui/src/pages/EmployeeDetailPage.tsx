@@ -31,6 +31,7 @@ const EmployeeDetailPage = () => {
             console.log('No files to submit');
           }
         }}
+        isLoading={uploadFileMutation.isLoading}
       />
 
       <Form

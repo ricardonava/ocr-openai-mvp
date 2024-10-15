@@ -7,8 +7,10 @@ type FormValues = {
 
 export function FileUploader({
   onSubmit,
+  isLoading,
 }: {
   onSubmit: (data: FormValues) => void;
+  isLoading: boolean;
 }) {
   const { register, setValue, watch, handleSubmit, reset } =
     useForm<FormValues>({
@@ -71,21 +73,23 @@ export function FileUploader({
                   ))}
                 </div>
                 <div className="mt-4 flex justify-center space-x-4">
-                  <button
-                    type="submit"
-                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                    disabled={!files || files.length === 0}
-                  >
-                    Upload Files
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleClearFiles}
-                    className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                    disabled={!files}
-                  >
-                    Clear Files
-                  </button>
+                  <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <button
+                      type="button"
+                      className="text-sm font-semibold leading-6 text-white disabled:opacity-40 disabled:cursor-not-allowed"
+                      onClick={handleClearFiles}
+                      disabled={!files || isLoading}
+                    >
+                      Clear files
+                    </button>
+                    <button
+                      disabled={!files || files.length === 0 || isLoading}
+                      type="submit"
+                      className="disabled:opacity-40 disabled:cursor-not-allowed rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    >
+                      {!isLoading ? 'Upload Files' : 'Uploading...'}
+                    </button>
+                  </div>
                 </div>
               </>
             ) : (
