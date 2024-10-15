@@ -1,115 +1,11 @@
 import classNames from 'classnames';
+import { employees } from '../mock/employees';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const statuses = {
   Completed: 'text-green-400 bg-green-400/10',
-  Error: 'text-rose-400 bg-rose-400/10',
+  Pending: 'text-yellow-400 bg-yellow-400/10',
 };
-const activityItems = [
-  {
-    user: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '2d89f0c8',
-    branch: 'main',
-    status: 'Completed',
-    duration: '25s',
-    date: '45 minutes ago',
-    dateTime: '2023-01-23T11:00',
-  },
-  {
-    user: {
-      name: 'Lindsay Walton',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '249df660',
-    branch: 'main',
-    status: 'Completed',
-    duration: '1m 32s',
-    date: '3 hours ago',
-    dateTime: '2023-01-23T09:00',
-  },
-  {
-    user: {
-      name: 'Courtney Henry',
-      imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '11464223',
-    branch: 'main',
-    status: 'Error',
-    duration: '1m 4s',
-    date: '12 hours ago',
-    dateTime: '2023-01-23T00:00',
-  },
-  {
-    user: {
-      name: 'Courtney Henry',
-      imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: 'dad28e95',
-    branch: 'main',
-    status: 'Completed',
-    duration: '2m 15s',
-    date: '2 days ago',
-    dateTime: '2023-01-21T13:00',
-  },
-  {
-    user: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '624bc94c',
-    branch: 'main',
-    status: 'Completed',
-    duration: '1m 12s',
-    date: '5 days ago',
-    dateTime: '2023-01-18T12:34',
-  },
-  {
-    user: {
-      name: 'Courtney Henry',
-      imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: 'e111f80e',
-    branch: 'main',
-    status: 'Completed',
-    duration: '1m 56s',
-    date: '1 week ago',
-    dateTime: '2023-01-16T15:54',
-  },
-  {
-    user: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '5e136005',
-    branch: 'main',
-    status: 'Completed',
-    duration: '3m 45s',
-    date: '1 week ago',
-    dateTime: '2023-01-16T11:31',
-  },
-  {
-    user: {
-      name: 'Whitney Francis',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    commit: '5c1fd07f',
-    branch: 'main',
-    status: 'Completed',
-    duration: '37s',
-    date: '2 weeks ago',
-    dateTime: '2023-01-09T08:45',
-  },
-];
 
 export default function Example() {
   return (
@@ -137,7 +33,7 @@ export default function Example() {
               scope="col"
               className="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell"
             >
-              Commit
+              Company
             </th>
             <th
               scope="col"
@@ -149,18 +45,18 @@ export default function Example() {
               scope="col"
               className="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20"
             >
-              Duration
+              Email
             </th>
             <th
               scope="col"
-              className="hidden py-2 pl-0 pr-4 font-semibold text-right sm:table-cell sm:pr-6 lg:pr-8"
+              className="hidden py-2 pl-0 pr-4 font-semibold text-center sm:table-cell sm:pr-6 lg:pr-8"
             >
-              Deployed at
+              Action
             </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-white/5">
-          {activityItems.map((item) => (
+          {employees.map((item) => (
             <tr key={item.commit}>
               <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
                 <div className="flex items-center gap-x-4">
@@ -176,11 +72,8 @@ export default function Example() {
               </td>
               <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
                 <div className="flex gap-x-3">
-                  <div className="font-mono text-sm leading-6 text-gray-400">
-                    {item.commit}
-                  </div>
-                  <div className="px-2 py-1 text-xs font-medium text-gray-400 rounded-md bg-gray-700/40 ring-1 ring-inset ring-white/10">
-                    {item.branch}
+                  <div className="text-sm leading-6 text-gray-400 ">
+                    {item.company}
                   </div>
                 </div>
               </td>
@@ -206,10 +99,28 @@ export default function Example() {
                 </div>
               </td>
               <td className="hidden py-4 pl-0 pr-8 text-sm leading-6 text-gray-400 md:table-cell lg:pr-20">
-                {item.duration}
+                {item.email}
               </td>
-              <td className="hidden py-4 pl-0 pr-4 text-sm leading-6 text-right text-gray-400 sm:table-cell sm:pr-6 lg:pr-8">
-                <time dateTime={item.dateTime}>{item.date}</time>
+              <td className="hidden py-4 pl-0 pr-4 text-sm leading-6 text-center text-gray-400 sm:table-cell sm:pr-6 lg:pr-8">
+                {item.status === 'Completed' ? (
+                  <div className="flex items-center font-bold">
+                    <CheckCircleIcon
+                      height={20}
+                      fill="rgb(34,197,94)"
+                      className="mr-1 text-black"
+                    />
+                    All set
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className={classNames(
+                      `block px-3 py-2 text-xs font-semibold text-center text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
+                    )}
+                  >
+                    Upload Documents
+                  </button>
+                )}
               </td>
             </tr>
           ))}

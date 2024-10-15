@@ -1,10 +1,11 @@
 import React from 'react';
-import { BoltIcon } from '@heroicons/react/24/outline';
+import { BoltIcon, FireIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import Logo from './Logo';
 
 const navigation = [
   { name: 'Onboarding', href: '#', icon: BoltIcon, current: true },
+  { name: 'Offboarding', href: '#', icon: FireIcon, current: false },
 ];
 
 const teams = [
