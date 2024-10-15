@@ -49,7 +49,7 @@ const EmployeeDetailPage = () => {
   };
 
   return (
-    <div className="px-32 py-16 space-y-16 divide-y divide-slate-600">
+    <div className="px-32 py-16 space-y-16">
       <FileUploader
         onSubmit={(data) => {
           if (data.files) {
