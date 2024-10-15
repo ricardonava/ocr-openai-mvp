@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Form({ defaultValues, children, onSubmit }: any) {
+export function Form({ defaultValues, children, onSubmit }: any) {
   const methods = useForm({ defaultValues });
   const { handleSubmit } = methods;
 
@@ -22,3 +22,5 @@ export default function Form({ defaultValues, children, onSubmit }: any) {
     </form>
   );
 }
+
+export default Form;
