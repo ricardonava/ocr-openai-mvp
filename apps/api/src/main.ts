@@ -32,7 +32,7 @@ async function uploadImagesAndGetResponse(pdfPaths: string[]): Promise<OpenAIRes
     return { results }; 
 
   } catch (error) {
-    console.error('Error uploading PDFs to OpenAI:', error);
+    console.error('Error uploading Images to OpenAI:', error);
     throw error;
   }
 }
@@ -61,7 +61,7 @@ app.post('/api/upload', upload.array('images', 10), async (req: MulterRequest, r
     res.json(openAIResponse);
   } catch (error) {
     console.error('Error during OpenAI processing:', error);
-    res.status(500).send({ error: 'Error processing PDFs with OpenAI' });
+    res.status(500).send({ error: 'Error processing Images with OpenAI' });
   }
 });
 
