@@ -18,6 +18,24 @@ interface MulterRequest extends Request {
   files?: Express.Multer.File[];
 }
 
+function determineDocumentType(filename: string): string {
+  const patterns: { [key: string]: RegExp } = {
+    bankStatement: /bank[\s-_]?statement/i,
+    proofOfAddress: /proof[\s-_]?of[\s-_]?address/i,
+    curp: /curp/i
+  };
+
+  // Loop through the patterns to find a match
+  for (const [documentType, regex] of Object.entries(patterns)) {
+    if (regex.test(filename)) {
+      return documentType; // Return the first matched document type
+    }
+  }
+
+  // Default case if none match
+  return 'bankStatement'; // Set default document type
+}
+
 // handle OpenAI API call
 async function uploadImagesAndGetResponse(
   pdfPaths: string[]
@@ -25,8 +43,15 @@ async function uploadImagesAndGetResponse(
   try {
     const results = await Promise.all(
       pdfPaths.map(async (pdfPath) => {
+        // Extract the filename from the pdfPath
+    const filename = path.basename(pdfPath).toLowerCase(); // Convert to lowercase for uniform matching
+
+    // Use the more robust determineDocumentType function to categorize the file
+    const documentType = determineDocumentType(filename);
+
+      
         const imageEncoded = await encodeImage(pdfPath); // Encode each image
-        const result = await aiScan(imageEncoded, 'bankStatement'); // Scan and get the result
+        const result = await aiScan(imageEncoded, documentType); // Scan and get the result
         return result; // Return the result for each PDF
       })
     );
