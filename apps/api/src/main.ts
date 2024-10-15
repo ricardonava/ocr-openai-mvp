@@ -2,12 +2,12 @@ import express, { Request } from 'express';
 import * as path from 'path';
 import multer from 'multer'; // For handling file uploads
 import { aiScan, encodeImage } from '@just-scan/ai-scan';
+import cors from 'cors';
 
 const app = express();
 
 // Set up file upload handling with multer
 const upload = multer({ dest: 'uploads/' });
-
 
 interface OpenAIResponse {
   //TODO
@@ -19,7 +19,9 @@ interface MulterRequest extends Request {
 }
 
 // handle OpenAI API call
-async function uploadImagesAndGetResponse(pdfPaths: string[]): Promise<OpenAIResponse> {
+async function uploadImagesAndGetResponse(
+  pdfPaths: string[]
+): Promise<OpenAIResponse> {
   try {
     const results = await Promise.all(
       pdfPaths.map(async (pdfPath) => {
@@ -28,14 +30,19 @@ async function uploadImagesAndGetResponse(pdfPaths: string[]): Promise<OpenAIRes
         return result; // Return the result for each PDF
       })
     );
-    
-    return { results }; 
 
+    return { results };
   } catch (error) {
     console.error('Error uploading Images to OpenAI:', error);
     throw error;
   }
 }
+
+app.use(
+  cors({
+    origin: 'http://localhost:4200', // Replace with your front-end URL
+  })
+);
 
 // Serve static assets
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
@@ -45,25 +52,28 @@ app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to the API!' });
 });
 
-
 // Route to upload images files and get a response from OpenAI
-app.post('/api/upload', upload.array('images', 10), async (req: MulterRequest, res) => {
-  try {
-    const images = req.files?.map((file) => file.path) || [];
+app.post(
+  '/api/upload',
+  upload.array('images', 10),
+  async (req: MulterRequest, res) => {
+    try {
+      const images = req.files?.map((file) => file.path) || [];
 
-    if (images.length === 0) {
-      return res.status(400).send({ error: 'No files were uploaded.' });
+      if (images.length === 0) {
+        return res.status(400).send({ error: 'No files were uploaded.' });
+      }
+
+      // Call OpenAI API with uploaded PDF files
+      const openAIResponse = await uploadImagesAndGetResponse(images);
+
+      res.json(openAIResponse);
+    } catch (error) {
+      console.error('Error during OpenAI processing:', error);
+      res.status(500).send({ error: 'Error processing Images with OpenAI' });
     }
-
-    // Call OpenAI API with uploaded PDF files
-    const openAIResponse = await uploadImagesAndGetResponse(images);
-    
-    res.json(openAIResponse);
-  } catch (error) {
-    console.error('Error during OpenAI processing:', error);
-    res.status(500).send({ error: 'Error processing Images with OpenAI' });
   }
-});
+);
 
 // Start server
 const port = process.env.PORT || 3333;
