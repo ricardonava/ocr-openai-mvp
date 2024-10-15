@@ -1,15 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FileUploader, Form, Submit, TextField } from '@just-scan/form';
 import { useParams } from 'react-router-dom';
+import { useFileUploadMutation } from '../api/employee';
 
 const EmployeeDetailPage = () => {
   const { id } = useParams();
+  const uploadFileMutation = useFileUploadMutation();
+
   return (
     <div className="px-32 space-y-16 divide-y">
       <FileUploader
         onSubmit={(data) => {
           if (data.files) {
             console.log('Submitting files: ', Array.from(data.files));
+            uploadFileMutation.mutate(
+              {
+                files: data.files,
+                presignedUploadUrl: 'http://localhost:3333/api/upload',
+              },
+              {
+                onSuccess: () => {
+                  console.log('File uploaded successfully');
+                },
+                onError: (error) => {
+                  console.error('Error uploading file: ', error);
+                },
+              }
+            );
           } else {
             console.log('No files to submit');
           }
