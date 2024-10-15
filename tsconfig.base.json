@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@just-scan/ai-scan": ["libs/ai-scan/src/index.ts"]
+      "@just-scan/ai-scan": ["libs/ai-scan/src/index.ts"],
+      "@just-scan/form": ["libs/form/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
