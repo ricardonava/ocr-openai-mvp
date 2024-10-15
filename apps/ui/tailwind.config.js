@@ -3,6 +3,7 @@ const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['selector', '[data-mode="dark"]'],
   content: [
     join(
       __dirname,
@@ -11,13 +12,16 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
-    fontFamily: {
-      oately: ["Oately", "sans-serif"]
+    extend: {
+      fontFamily: {
+        oately: ["Oately", "sans-serif"]
+      },
+      colors: {
+        brand: '#52b0ff'
+      }
     },
-    colors: {
-      brand: '#52b0ff'
-    }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };
