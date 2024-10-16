@@ -42,7 +42,7 @@ export default function Progress({ start = true, isSuccess }: Props) {
           <div
             className={classNames(
               'text-center',
-              completed >= 50 && 'text-white'
+              completed >= 80 && 'text-white'
             )}
           >
             Scanning the Image
@@ -50,7 +50,7 @@ export default function Progress({ start = true, isSuccess }: Props) {
           <div
             className={classNames(
               'text-center',
-              completed >= 75 && 'text-white'
+              completed >= 90 && 'text-white'
             )}
           >
             Doing some AI Magic
