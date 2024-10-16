@@ -86,10 +86,28 @@ app.post(
         return res.status(400).send({ error: 'No files were uploaded.' });
       }
 
-      // Call OpenAI API with uploaded PDF files
       const openAIResponse = await uploadImagesAndGetResponse(images);
+      const results = openAIResponse.results;
 
-      res.json(_.merge({}, ...openAIResponse.results));
+      const allFirstNamesEqual = results.every(
+        (item) => item.firstName === results[0].firstName
+      );
+      const allLastNamesEqual = results.every(
+        (item) => item.lastName === results[0].lastName
+      );
+
+      let response = {
+        error:
+          'Some of the documents appear to belong to different individuals. Please double-check and ensure all documents are for the same person before proceeding.',
+      };
+
+      if (allFirstNamesEqual && allLastNamesEqual) {
+        response = _.merge({}, ...results);
+      }
+
+      res.json(response);
+
+
     } catch (error) {
       console.error('Error during OpenAI processing:', error);
       res.status(500).send({ error: 'Error processing Images with OpenAI' });
