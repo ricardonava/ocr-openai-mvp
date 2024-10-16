@@ -1,7 +1,7 @@
 import express, { Request } from 'express';
 import * as path from 'path';
 import multer from 'multer'; // For handling file uploads
-import { aiScan, encodeImage } from '@just-scan/ai-scan';
+import { aiScan, type DocumentType, encodeImage } from '@just-scan/ai-scan';
 import cors from 'cors';
 
 const app = express();
@@ -18,16 +18,39 @@ interface MulterRequest extends Request {
   files?: Express.Multer.File[];
 }
 
+type UploadedFile = {
+  path: string;
+  filename: string;
+};
+
+function determineDocumentType(filename: string): DocumentType {
+  const lowercasedFilename = filename.toLowerCase();
+  console.log('lowercasedFilename:', lowercasedFilename);
+
+  if (lowercasedFilename.includes('bankstatement')) {
+    return 'bankStatement';
+  } else if (lowercasedFilename.includes('curp')) {
+    return 'curp';
+  } else if (lowercasedFilename.includes('proofofaddress')) {
+    return 'proofOfAddress';
+  }
+
+  throw new Error('Unknown document type');
+}
+
 // handle OpenAI API call
 async function uploadImagesAndGetResponse(
-  pdfPaths: string[]
+  files: UploadedFile[]
 ): Promise<OpenAIResponse> {
   try {
     const results = await Promise.all(
-      pdfPaths.map(async (pdfPath) => {
-        const imageEncoded = await encodeImage(pdfPath); // Encode each image
-        const result = await aiScan(imageEncoded, 'bankStatement'); // Scan and get the result
-        return result; // Return the result for each PDF
+      files.map(async (file) => {
+        // Use the more robust determineDocumentType function to categorize the file
+        const documentType = determineDocumentType(file.filename);
+
+        const imageEncoded = await encodeImage(file.path); // Encode each image
+        // Scan and get the result
+        return await aiScan(imageEncoded, documentType); // Return the result for each PDF
       })
     );
 
@@ -58,7 +81,10 @@ app.post(
   upload.array('images', 10),
   async (req: MulterRequest, res) => {
     try {
-      const images = req.files?.map((file) => file.path) || [];
+      const images: UploadedFile[] =
+        req.files?.map((file) => {
+          return { path: file.path, filename: file.originalname };
+        }) || [];
 
       if (images.length === 0) {
         return res.status(400).send({ error: 'No files were uploaded.' });

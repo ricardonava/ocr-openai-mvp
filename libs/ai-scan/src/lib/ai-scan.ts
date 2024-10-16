@@ -96,4 +96,4 @@ export async function aiScan(
   return await getParsedDocument(baseImage, documentType);
 }
 
-export { encodeImage };
+export { encodeImage, type DocumentType };
