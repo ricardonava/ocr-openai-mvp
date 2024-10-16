@@ -24,25 +24,25 @@ const EmployeeForm = ({ defaultValues }: any) => {
       <TextField
         name="firstName"
         label="First Name"
-        placeholder="Employee's first name"
+        placeholder="e.g., Maria"
         colSpan={6}
       />
       <TextField
         name="lastName"
         label="Last Name"
-        placeholder="Employee's last name"
+        placeholder="e.g., Lopez Martinez"
         colSpan={6}
       />
       <TextField
         name="dateOfBirth"
         label="Date of Birth"
-        placeholder="Employee's date of birth"
+        placeholder="MM-DD-YYYY"
         colSpan={6}
       />
       <TextField
         name="placeOfBirth"
         label="Place of Birth"
-        placeholder="Employee's place of birth"
+        placeholder="e.g., Guadalajara"
         colSpan={6}
       />
       <div className="col-span-full mt-3">
@@ -56,25 +56,25 @@ const EmployeeForm = ({ defaultValues }: any) => {
       <TextField
         name="clabe"
         label="CLABE"
-        placeholder="Employee's CLABE"
+        placeholder="18 digits, e.g., 002180045678901234"
         colSpan={6}
       />
       <TextField
         name="account"
         label="Account"
-        placeholder="Employee's bank accout number"
+        placeholder="e.g., 4567890123"
         colSpan={6}
       />
       <TextField
         name="rfc"
         label="RFC"
-        placeholder="Employee's RFC"
+        placeholder="e.g., LOMM850101XX9"
         colSpan={6}
       />
       <TextField
         name="curp"
         label="CURP"
-        placeholder="Employee's CURP"
+        placeholder="e.g., LOMM850101HDFRRL08"
         colSpan={6}
       />
 
@@ -89,26 +89,26 @@ const EmployeeForm = ({ defaultValues }: any) => {
       <TextField
         name="street"
         label="Street"
-        placeholder="Employee's street"
+        placeholder="e.g., Avenida Siempre Viva 742"
         colSpan={6}
       />
       <TextField
         name="state"
         label="State"
-        placeholder="Employee's state"
+        placeholder="e.g., Jalisco"
         colSpan={6}
       />
       <TextField
         name="country"
         label="Country"
-        placeholder="Employee's country"
+        placeholder="e.g., Mexico"
         colSpan={6}
       />
 
       <TextField
         name="poBox"
         label="PO Box"
-        placeholder="Employee's PO Box"
+        placeholder="e.g., 44100"
         colSpan={6}
       />
       <div className="col-span-full">
