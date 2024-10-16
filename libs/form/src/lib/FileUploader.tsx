@@ -112,7 +112,9 @@ export function FileUploader({
                     htmlFor="files"
                     className="relative mt-5 font-semibold text-white bg-gray-900 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
                   >
-                    <span>Upload onboarding files </span>
+                    <span className="underline underline-offset-2">
+                      Upload onboarding files{' '}
+                    </span>
                     <input
                       id="files"
                       type="file"
