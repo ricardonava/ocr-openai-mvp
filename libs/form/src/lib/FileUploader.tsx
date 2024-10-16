@@ -92,7 +92,7 @@ export function FileUploader({
                       onClick={handleClearFiles}
                       disabled={!files || isLoading}
                     >
-                      Clear files
+                      Clear
                     </button>
                     <button
                       disabled={!files || files.length === 0 || isLoading}
