@@ -2,8 +2,10 @@
 import { FileUploader, Form, Submit, TextField } from '@just-scan/form';
 import { useParams } from 'react-router-dom';
 import { useFileUploadMutation } from '../api/employee';
-import ImagePreview from '../../../../libs/form/src/lib/ImagePreview';
+import Notification from '../components/Notification';
 import { useState } from 'react';
+import Progress from '../components/Progress';
+import { start } from 'repl';
 
 const EmployeeForm = ({ defaultValues }: any) => {
   return (
@@ -119,11 +121,8 @@ const EmployeeForm = ({ defaultValues }: any) => {
 };
 
 const EmployeeDetailPage = () => {
-  const { id } = useParams();
-  const [currentPreview, setCurrentPreview] = useState<File | null>(null);
   const uploadFileMutation = useFileUploadMutation();
-
-  console.log('Employee ID', id);
+  const [start, setStart] = useState(false);
 
   // TODO fix types as inner data is typed as NEVER this is non breaking we just have the ugly eslint error
   const defaultValues = {
@@ -141,43 +140,50 @@ const EmployeeDetailPage = () => {
     poBox: uploadFileMutation.data?.data.address.poBox,
   };
 
-  console.debug('uploadFileMutation.progress', uploadFileMutation.progress);
-
   return (
-    <div className="px-32 py-16 space-y-16">
-      <FileUploader
-        onSubmit={(data) => {
-          if (data.files) {
-            console.log('Submitting files: ', Array.from(data.files));
-            uploadFileMutation.mutate(
-              {
-                files: data.files,
-                presignedUploadUrl: 'http://localhost:3333/api/upload',
-              },
-              {
-                onSuccess: () => {
-                  console.log('File uploaded successfully');
-                },
-                onError: (error) => {
-                  console.error('Error uploading file: ', error);
-                },
-              }
-            );
-          } else {
-            console.log('No files to submit');
-          }
-        }}
-        isLoading={uploadFileMutation.isLoading}
+    <>
+      <Notification
+        show={uploadFileMutation.isSuccess}
+        type="success"
+        message="Successfully processed!"
       />
+      <div className="px-32 py-16 space-y-16">
+        <FileUploader
+          onSubmit={(data) => {
+            setStart(true);
+            if (data.files) {
+              console.log('Submitting files: ', Array.from(data.files));
+              uploadFileMutation.mutate(
+                {
+                  files: data.files,
+                  presignedUploadUrl: 'http://localhost:3333/api/upload',
+                },
+                {
+                  onSuccess: () => {
+                    console.log('File uploaded successfully');
+                  },
+                  onError: (error) => {
+                    console.error('Error uploading file: ', error);
+                  },
+                }
+              );
+            } else {
+              console.log('No files to submit');
+            }
+          }}
+          isLoading={uploadFileMutation.isLoading}
+        />
+        <Progress start={start} isSuccess={uploadFileMutation.isSuccess} />
 
-      {uploadFileMutation.isLoading ? (
-        <fieldset className="disabled:opacity-40" disabled>
+        {uploadFileMutation.isLoading ? (
+          <fieldset className="disabled:opacity-40" disabled>
+            <EmployeeForm defaultValues={defaultValues} />
+          </fieldset>
+        ) : (
           <EmployeeForm defaultValues={defaultValues} />
-        </fieldset>
-      ) : (
-        <EmployeeForm defaultValues={defaultValues} />
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 

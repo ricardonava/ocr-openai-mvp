@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { ArrowUpIcon } from '@heroicons/react/24/outline';
 
 import ImagePreview from './ImagePreview';
-import Progress from './Progress';
 
 type FormValues = {
   files: FileList | null;
@@ -16,7 +15,7 @@ export function FileUploader({
   onSubmit: (data: FormValues) => void;
   isLoading: boolean;
 }) {
-  const { register, setValue, watch, handleSubmit, reset, getValues } =
+  const { register, setValue, watch, handleSubmit, reset } =
     useForm<FormValues>({
       defaultValues: { files: null },
     });
@@ -53,8 +52,6 @@ export function FileUploader({
     reset();
   };
 
-  console.debug('getValues', getValues('files'));
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ImagePreview
@@ -62,12 +59,12 @@ export function FileUploader({
         onClose={() => setCurrentlyPreviewing(null)}
       />
       <div className="col-span-full">
-        <label
+        {/* <label
           htmlFor="cover-photo"
           className="block text-sm font-medium leading-6 text-white"
         >
           Onboarding documents
-        </label>
+        </label> */}
         <div
           className={`mt-2 flex justify-center items-center rounded-lg border border-dashed border-white/25 px-6 py-10 min-h-96 ${
             dragActive ? 'bg-gray-800' : ''
@@ -85,6 +82,7 @@ export function FileUploader({
                     <div
                       className="cursor-pointer w-[250px] bg-white items-center flex"
                       onClick={() => setCurrentlyPreviewing(file)}
+                      key={index}
                     >
                       <div>
                         <img src={URL.createObjectURL(file)} alt={file.name} />
@@ -107,7 +105,7 @@ export function FileUploader({
                       type="submit"
                       className="px-3 py-2 text-sm font-semibold text-white bg-indigo-500 rounded-md shadow-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                     >
-                      {!isLoading ? 'Upload Files' : 'Uploading...'}
+                      {!isLoading ? 'Scan Documents' : 'Scanning...'}
                     </button>
                   </div>
                 </div>
@@ -120,7 +118,7 @@ export function FileUploader({
                     htmlFor="files"
                     className="relative mt-5 font-semibold text-white bg-gray-900 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
                   >
-                    <span>Upload onboarding files</span>
+                    <span>Upload onboarding files </span>
                     <input
                       id="files"
                       type="file"
@@ -138,7 +136,6 @@ export function FileUploader({
             )}
           </div>
         </div>
-        <Progress />
       </div>
     </form>
   );

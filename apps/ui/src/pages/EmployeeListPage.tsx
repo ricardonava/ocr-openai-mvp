@@ -115,10 +115,10 @@ export default function Example() {
                     onClick={() => gotoUploadPage(item.id)}
                     type="button"
                     className={classNames(
-                      `block px-3 py-2 text-xs font-semibold text-center text-white bg-brand rounded-md shadow-sm hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
+                      `block px-3 py-2 text-xs font-semibold text-center text-white bg-indigo-500 rounded-md shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
                     )}
                   >
-                    Upload Documents
+                    Add Information
                   </button>
                 )}
               </td>
