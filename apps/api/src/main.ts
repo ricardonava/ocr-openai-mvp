@@ -3,15 +3,16 @@ import * as path from 'path';
 import multer from 'multer'; // For handling file uploads
 import { aiScan, type DocumentType, encodeImage } from '@just-scan/ai-scan';
 import cors from 'cors';
+import _ from 'lodash';
 
 const app = express();
 
 // Set up file upload handling with multer
 const upload = multer({ dest: 'uploads/' });
 
-interface OpenAIResponse {
-  //TODO
-}
+export type JsonObject = {
+  [key: string]: never;
+};
 
 // Extend the Express Request interface to include files from multer
 interface MulterRequest extends Request {
@@ -41,7 +42,7 @@ function determineDocumentType(filename: string): DocumentType {
 // handle OpenAI API call
 async function uploadImagesAndGetResponse(
   files: UploadedFile[]
-): Promise<OpenAIResponse> {
+): Promise<{ results: Awaited<JsonObject>[] }> {
   try {
     const results = await Promise.all(
       files.map(async (file) => {
@@ -70,11 +71,6 @@ app.use(
 // Serve static assets
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Basic route
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to the API!' });
-});
-
 // Route to upload images files and get a response from OpenAI
 app.post(
   '/api/upload',
@@ -93,7 +89,7 @@ app.post(
       // Call OpenAI API with uploaded PDF files
       const openAIResponse = await uploadImagesAndGetResponse(images);
 
-      res.json(openAIResponse);
+      res.json(_.merge({}, ...openAIResponse.results));
     } catch (error) {
       console.error('Error during OpenAI processing:', error);
       res.status(500).send({ error: 'Error processing Images with OpenAI' });
