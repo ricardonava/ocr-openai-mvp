@@ -118,7 +118,7 @@ export default function Example() {
                       `block px-3 py-2 text-xs font-semibold text-center text-white bg-indigo-500 rounded-md shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
                     )}
                   >
-                    Add Information
+                    Start Onboarding
                   </button>
                 )}
               </td>
