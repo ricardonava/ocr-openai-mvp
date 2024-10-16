@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FileUploader, Form, Submit, TextField } from '@just-scan/form';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { useFileUploadMutation } from '../api/employee';
 import Notification from '../components/Notification';
-import { useState } from 'react';
 import Progress from '../components/Progress';
-import { start } from 'repl';
 
 const EmployeeForm = ({ defaultValues }: any) => {
+  if (defaultValues.firstName) {
+    window.scrollTo({
+      top: 700,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }
   return (
     <Form
       defaultValues={defaultValues}
@@ -96,29 +101,41 @@ const EmployeeDetailPage = () => {
   const uploadFileMutation = useFileUploadMutation();
   const [start, setStart] = useState(false);
 
+  console.log('uploadFileMutation', uploadFileMutation.data?.data.error);
+
   // TODO fix types as inner data is typed as NEVER this is non breaking we just have the ugly eslint error
+
   const defaultValues = {
-    firstName: uploadFileMutation.data?.data.firstName,
-    lastName: uploadFileMutation.data?.data.lastName,
-    clabe: uploadFileMutation.data?.data.clabe,
-    account: uploadFileMutation.data?.data.account,
-    rfc: uploadFileMutation.data?.data.rfc,
-    curp: uploadFileMutation.data?.data.curp,
-    dateOfBirth: uploadFileMutation.data?.data.dateOfBirth,
-    placeOfBirth: uploadFileMutation.data?.data.placeOfBirth,
-    street: uploadFileMutation.data?.data.address.street,
-    state: uploadFileMutation.data?.data.address.state,
-    country: uploadFileMutation.data?.data.address.country,
-    poBox: uploadFileMutation.data?.data.address.poBox,
+    firstName: '',
+    lastName: '',
+    clabe: '',
+    account: '',
+    rfc: '',
+    curp: '',
+    dateOfBirth: '',
+    placeOfBirth: '',
+    street: '',
+    state: '',
+    country: '',
+    poBox: '',
   };
 
   return (
     <>
-      <Notification
-        show={uploadFileMutation.isSuccess}
-        type="success"
-        message="Successfully processed!"
-      />
+      {uploadFileMutation.data?.data.error ? (
+        <Notification
+          show={true}
+          type="error"
+          message="Documents belong to different employees. Please verify."
+        />
+      ) : (
+        <Notification
+          show={uploadFileMutation.isSuccess}
+          type="success"
+          message="Successfully processed!"
+        />
+      )}
+
       <div className="px-32 py-16 space-y-16">
         <FileUploader
           onSubmit={(data) => {
@@ -152,7 +169,26 @@ const EmployeeDetailPage = () => {
             <EmployeeForm defaultValues={defaultValues} />
           </fieldset>
         ) : (
-          <EmployeeForm defaultValues={defaultValues} />
+          <EmployeeForm
+            defaultValues={
+              !uploadFileMutation.data?.data.error
+                ? {
+                    firstName: uploadFileMutation.data?.data.firstName,
+                    lastName: uploadFileMutation.data?.data.lastName,
+                    clabe: uploadFileMutation.data?.data.clabe,
+                    account: uploadFileMutation.data?.data.account,
+                    rfc: uploadFileMutation.data?.data.rfc,
+                    curp: uploadFileMutation.data?.data.curp,
+                    dateOfBirth: uploadFileMutation.data?.data.dateOfBirth,
+                    placeOfBirth: uploadFileMutation.data?.data.placeOfBirth,
+                    street: uploadFileMutation.data?.data.address.street,
+                    state: uploadFileMutation.data?.data.address.state,
+                    country: uploadFileMutation.data?.data.address.country,
+                    poBox: uploadFileMutation.data?.data.address.poBox,
+                  }
+                : defaultValues
+            }
+          />
         )}
       </div>
     </>

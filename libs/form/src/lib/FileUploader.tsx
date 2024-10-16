@@ -59,12 +59,6 @@ export function FileUploader({
         onClose={() => setCurrentlyPreviewing(null)}
       />
       <div className="col-span-full">
-        {/* <label
-          htmlFor="cover-photo"
-          className="block text-sm font-medium leading-6 text-white"
-        >
-          Onboarding documents
-        </label> */}
         <div
           className={`mt-2 flex justify-center items-center rounded-lg border border-dashed border-white/25 px-6 py-10 min-h-96 ${
             dragActive ? 'bg-gray-800' : ''
@@ -113,7 +107,7 @@ export function FileUploader({
             ) : (
               <>
                 <div className="flex flex-col mt-4 text-sm leading-6 text-gray-400">
-                  <ArrowUpIcon className="h-12 text-brand" />
+                  <ArrowUpIcon className="h-8 text-gray-400" />
                   <label
                     htmlFor="files"
                     className="relative mt-5 font-semibold text-white bg-gray-900 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"

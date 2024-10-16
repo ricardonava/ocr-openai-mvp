@@ -34,6 +34,7 @@ export default function Progress({ start = true, isSuccess }: Props) {
           isLabelVisible={false}
           bgColor="rgb(79,70,229)"
           height="8px"
+          baseBgColor="#27324a"
         />
         <div className="hidden grid-cols-4 mt-6 text-sm font-medium text-gray-600 sm:grid">
           <div className={classNames(completed >= 25 && 'text-white')}>
@@ -61,7 +62,7 @@ export default function Progress({ start = true, isSuccess }: Props) {
               completed >= 100 && 'text-white'
             )}
           >
-            Success
+            Done
           </div>
         </div>
       </div>
