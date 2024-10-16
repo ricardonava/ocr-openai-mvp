@@ -18,8 +18,14 @@ interface MulterRequest extends Request {
   files?: Express.Multer.File[];
 }
 
+type UploadedFile = {
+  path: string;
+  filename: string;
+};
+
 function determineDocumentType(filename: string): DocumentType {
   const lowercasedFilename = filename.toLowerCase();
+  console.log('lowercasedFilename:', lowercasedFilename);
 
   if (lowercasedFilename.includes('bankstatement')) {
     return 'bankStatement';
@@ -34,15 +40,15 @@ function determineDocumentType(filename: string): DocumentType {
 
 // handle OpenAI API call
 async function uploadImagesAndGetResponse(
-  pdfPaths: string[]
+  files: UploadedFile[]
 ): Promise<OpenAIResponse> {
   try {
     const results = await Promise.all(
-      pdfPaths.map(async (pdfPath) => {
+      files.map(async (file) => {
         // Use the more robust determineDocumentType function to categorize the file
-        const documentType = determineDocumentType(pdfPath);
+        const documentType = determineDocumentType(file.filename);
 
-        const imageEncoded = await encodeImage(pdfPath); // Encode each image
+        const imageEncoded = await encodeImage(file.path); // Encode each image
         // Scan and get the result
         return await aiScan(imageEncoded, documentType); // Return the result for each PDF
       })
@@ -75,7 +81,10 @@ app.post(
   upload.array('images', 10),
   async (req: MulterRequest, res) => {
     try {
-      const images = req.files?.map((file) => file.path) || [];
+      const images: UploadedFile[] =
+        req.files?.map((file) => {
+          return { path: file.path, filename: file.originalname };
+        }) || [];
 
       if (images.length === 0) {
         return res.status(400).send({ error: 'No files were uploaded.' });
