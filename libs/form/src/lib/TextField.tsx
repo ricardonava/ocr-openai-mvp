@@ -4,16 +4,14 @@ export function TextField({
   label,
   placeholder,
   register,
-  colSpan,
 }: {
   name: string;
   label: string;
   placeholder: string;
   register?: any;
-  colSpan?: number;
 }) {
   return (
-    <div className={`${colSpan ? `col-span-${colSpan}` : 'col-span-full'}`}>
+    <div className="col-span-6">
       <label
         htmlFor={name}
         className="block text-sm font-medium leading-6 text-white"

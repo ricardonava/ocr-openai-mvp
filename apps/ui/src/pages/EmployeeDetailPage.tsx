@@ -27,25 +27,21 @@ const EmployeeForm = ({ defaultValues }: any) => {
         name="firstName"
         label="First Name"
         placeholder="e.g., Maria"
-        colSpan={6}
       />
       <TextField
         name="lastName"
         label="Last Name"
         placeholder="e.g., Lopez Martinez"
-        colSpan={6}
       />
       <TextField
         name="dateOfBirth"
         label="Date of Birth"
         placeholder="MM-DD-YYYY"
-        colSpan={6}
       />
       <TextField
         name="placeOfBirth"
         label="Place of Birth"
         placeholder="e.g., Guadalajara"
-        colSpan={6}
       />
       <div className="col-span-full mt-3">
         <h2 className="text-base font-semibold leading-7 text-white">
@@ -59,25 +55,17 @@ const EmployeeForm = ({ defaultValues }: any) => {
         name="clabe"
         label="CLABE"
         placeholder="18 digits, e.g., 002180045678901234"
-        colSpan={6}
       />
       <TextField
         name="account"
         label="Account"
         placeholder="e.g., 4567890123"
-        colSpan={6}
       />
-      <TextField
-        name="rfc"
-        label="RFC"
-        placeholder="e.g., LOMM850101XX9"
-        colSpan={6}
-      />
+      <TextField name="rfc" label="RFC" placeholder="e.g., LOMM850101XX9" />
       <TextField
         name="curp"
         label="CURP"
         placeholder="e.g., LOMM850101HDFRRL08"
-        colSpan={6}
       />
 
       <div className="col-span-full mt-3">
@@ -92,27 +80,11 @@ const EmployeeForm = ({ defaultValues }: any) => {
         name="street"
         label="Street"
         placeholder="e.g., Avenida Siempre Viva 742"
-        colSpan={6}
       />
-      <TextField
-        name="state"
-        label="State"
-        placeholder="e.g., Jalisco"
-        colSpan={6}
-      />
-      <TextField
-        name="country"
-        label="Country"
-        placeholder="e.g., Mexico"
-        colSpan={6}
-      />
+      <TextField name="state" label="State" placeholder="e.g., Jalisco" />
+      <TextField name="country" label="Country" placeholder="e.g., Mexico" />
 
-      <TextField
-        name="poBox"
-        label="PO Box"
-        placeholder="e.g., 44100"
-        colSpan={6}
-      />
+      <TextField name="poBox" label="PO Box" placeholder="e.g., 44100" />
       <div className="col-span-full">
         <Submit />
       </div>
