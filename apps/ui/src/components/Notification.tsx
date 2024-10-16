@@ -27,7 +27,7 @@ export default function Notification({ _show }: Props) {
         aria-live="assertive"
         className="flex items-end px-4 py-6 pointer-events-none sm:items-start sm:p-6"
       >
-        <div className="flex flex-col items-center w-full space-y-4">
+        <div className="flex flex-col items-center w-full space-y-4 sm:items-end">
           {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
           <Transition show={show}>
             <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition data-[closed]:data-[enter]:translate-y-2 data-[enter]:transform data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-100 data-[enter]:ease-out data-[leave]:ease-in data-[closed]:data-[enter]:sm:translate-x-2 data-[closed]:data-[enter]:sm:translate-y-0">
@@ -41,7 +41,10 @@ export default function Notification({ _show }: Props) {
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Successfully Processed!
+                      Successfully saved!
+                    </p>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Anyone with a link can now view this file.
                     </p>
                   </div>
                   <div className="flex flex-shrink-0 ml-4">
