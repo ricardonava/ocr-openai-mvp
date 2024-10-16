@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
-import { OPENAI_API_KEY, type DocumentType } from './constants';
-import { getPromptByType, JsonObject, encodeImage } from './utils';
+import { type DocumentType, OPENAI_API_KEY } from './constants';
+import { encodeImage, getPromptByType, JsonObject } from './utils';
 
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
@@ -12,7 +12,7 @@ async function getParsedDocument(
 ): Promise<JsonObject> {
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o',
       response_format: { type: 'json_object' },
       messages: [
         {
@@ -23,6 +23,7 @@ async function getParsedDocument(
               type: 'image_url',
               image_url: {
                 url: base64Image,
+                detail: 'high',
               },
             },
           ],
