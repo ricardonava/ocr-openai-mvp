@@ -32,7 +32,7 @@ const AIScannerPage = () => {
       <ProgressBar
         completed={progress}
         className="mt-5"
-        bgColor="rgb(187,247,208)"
+        bgColor="#52b0ff"
         labelColor="rgb(0, 0, 0)"
         height="40px"
         labelClassName="font-bold"

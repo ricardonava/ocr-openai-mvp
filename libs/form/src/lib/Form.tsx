@@ -9,7 +9,7 @@ export function Form({ defaultValues, children, onSubmit, disabled }: any) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <fieldset disabled={disabled}>
-        <div className="grid gap-x-6 gap-y-8 mt-16">
+        <div className="grid grid-cols-2 mt-16 gap-x-6 gap-y-8">
           {React.Children.map(children, (child) => {
             return child.props.name
               ? React.createElement(child.type, {

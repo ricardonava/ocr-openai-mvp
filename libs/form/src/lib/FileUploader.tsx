@@ -1,6 +1,9 @@
 import { DragEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ArrowUpIcon } from '@heroicons/react/24/outline';
+
 import ImagePreview from './ImagePreview';
+import Progress from './Progress';
 
 type FormValues = {
   files: FileList | null;
@@ -66,7 +69,7 @@ export function FileUploader({
           Onboarding documents
         </label>
         <div
-          className={`mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10 ${
+          className={`mt-2 flex justify-center items-center rounded-lg border border-dashed border-white/25 px-6 py-10 min-h-96 ${
             dragActive ? 'bg-gray-800' : ''
           }`}
           onDragEnter={handleDrag}
@@ -112,10 +115,11 @@ export function FileUploader({
               </>
             ) : (
               <>
-                <div className="flex mt-4 text-sm leading-6 text-gray-400">
+                <div className="flex flex-col mt-4 text-sm leading-6 text-gray-400">
+                  <ArrowUpIcon className="h-12 text-brand" />
                   <label
                     htmlFor="files"
-                    className="relative font-semibold text-white bg-gray-900 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
+                    className="relative mt-5 font-semibold text-white bg-gray-900 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
                   >
                     <span>Upload onboarding files</span>
                     <input
@@ -135,6 +139,7 @@ export function FileUploader({
             )}
           </div>
         </div>
+        <Progress />
       </div>
     </form>
   );
