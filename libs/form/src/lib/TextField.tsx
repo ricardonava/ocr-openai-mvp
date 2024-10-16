@@ -4,14 +4,16 @@ export function TextField({
   label,
   placeholder,
   register,
+  colSpan,
 }: {
   name: string;
   label: string;
   placeholder: string;
   register?: any;
+  colSpan?: number;
 }) {
   return (
-    <div>
+    <div className={`${colSpan ? `col-span-${colSpan}` : 'col-span-full'}`}>
       <label
         htmlFor={name}
         className="block text-sm font-medium leading-6 text-white"
@@ -19,7 +21,9 @@ export function TextField({
         {label}
       </label>
       <div className="mt-2">
-        <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+        <div
+          className={`flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500`}
+        >
           <input
             {...register(name)}
             id={name}
