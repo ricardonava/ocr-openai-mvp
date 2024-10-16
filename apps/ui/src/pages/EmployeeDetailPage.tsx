@@ -21,10 +21,10 @@ const EmployeeForm = ({ defaultValues }: any) => {
       }}
     >
       <div className="col-span-full">
-        <h2 className="text-base font-semibold leading-7 text-white">
+        <h2 className="text-base font-semibold text-white">
           Personal information
         </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm text-gray-400">
           This information will be used to identify the employee
         </p>
       </div>
@@ -48,11 +48,11 @@ const EmployeeForm = ({ defaultValues }: any) => {
         label="Place of Birth"
         placeholder="e.g., Guadalajara"
       />
-      <div className="col-span-full mt-3">
-        <h2 className="text-base font-semibold leading-7 text-white">
+      <div className="col-span-full mt-3 border-t border-gray-700">
+        <h2 className="text-base font-semibold text-white mt-8">
           Financial information
         </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm text-gray-400">
           Add the information to pay the employee
         </p>
       </div>
@@ -73,11 +73,9 @@ const EmployeeForm = ({ defaultValues }: any) => {
         placeholder="e.g., LOMM850101HDFRRL08"
       />
 
-      <div className="col-span-full mt-3">
-        <h2 className="text-base font-semibold leading-7 text-white">
-          Address
-        </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+      <div className="col-span-full mt-3 border-t border-gray-700">
+        <h2 className="text-base font-semibold text-white mt-8">Address</h2>
+        <p className="mt-1 text-sm text-gray-400">
           This address will be used to for legal purposes
         </p>
       </div>
@@ -136,7 +134,7 @@ const EmployeeDetailPage = () => {
         />
       )}
 
-      <div className="px-32 py-16 space-y-16">
+      <div className="px-32 py-4 space-y-16">
         <FileUploader
           onSubmit={(data) => {
             setStart(true);
