@@ -2,13 +2,13 @@ export const employees = [
   {
     id: 1,
     user: {
-      name: 'Elliot Alderson',
+      name: 'Alfonso Strotgen',
       imageUrl:
         'https://static.wikia.nocookie.net/mrrobot/images/4/45/Elliot_Alderson_Icon.jpg',
     },
     company: 'E-Corp',
     status: 'Pending',
-    email: 'elliot@ecorp.com',
+    email: 'alfonso.strotgen@ecorp.com',
   },
   {
     id: 2,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FileUploader, Form, Submit, TextField } from '@just-scan/form';
+import { FileUploader, Form, TextField } from '@just-scan/form';
 import { useState } from 'react';
 import { useFileUploadMutation } from '../api/employee';
 import Notification from '../components/Notification';
@@ -8,7 +8,7 @@ import Progress from '../components/Progress';
 const EmployeeForm = ({ defaultValues }: any) => {
   if (defaultValues.firstName) {
     window.scrollTo({
-      top: 700,
+      top: 600,
       left: 0,
       behavior: 'smooth',
     });
@@ -88,9 +88,6 @@ const EmployeeForm = ({ defaultValues }: any) => {
       <TextField name="country" label="Country" placeholder="e.g., Mexico" />
 
       <TextField name="poBox" label="PO Box" placeholder="e.g., 44100" />
-      <div className="col-span-full">
-        <Submit />
-      </div>
     </Form>
   );
 };
