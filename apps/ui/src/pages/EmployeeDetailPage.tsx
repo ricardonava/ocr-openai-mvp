@@ -2,6 +2,8 @@
 import { FileUploader, Form, Submit, TextField } from '@just-scan/form';
 import { useParams } from 'react-router-dom';
 import { useFileUploadMutation } from '../api/employee';
+import ImagePreview from '../../../../libs/form/src/lib/ImagePreview';
+import { useState } from 'react';
 
 const EmployeeForm = ({ defaultValues }: any) => {
   return (
@@ -35,6 +37,7 @@ const EmployeeForm = ({ defaultValues }: any) => {
 
 const EmployeeDetailPage = () => {
   const { id } = useParams();
+  const [currentPreview, setCurrentPreview] = useState<File | null>(null);
   const uploadFileMutation = useFileUploadMutation();
 
   console.log('Employee ID', id);

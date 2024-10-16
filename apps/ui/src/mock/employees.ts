@@ -6,85 +6,74 @@ export const employees = [
       imageUrl:
         'https://static.wikia.nocookie.net/mrrobot/images/4/45/Elliot_Alderson_Icon.jpg',
     },
-    company: 'Evil Corp',
+    company: 'E-Corp',
     status: 'Pending',
-    email: 'mrobot@evilcorp.com',
+    email: 'elliot@ecorp.com',
   },
   {
     id: 2,
     user: {
-      name: 'Lindsay Walton',
+      name: 'Walter White',
       imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ5q85zpl40M4QblJv18hnmgUjpK5y1zdc8Q&s',
     },
-    company: 'Elliot’s Escape Rooms',
+    company: 'Los Pollos Hermanos',
     status: 'Pending',
-    email: 'abc@example.com',
+    email: 'white@lospollos.com',
   },
   {
     id: 3,
     user: {
-      name: 'Courtney Henry',
+      name: 'Michael Scott',
       imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://jeprades.github.io/michael-scott-tribute/images/michael-scott-header.png',
     },
-    company: 'White Rose',
+    company: 'Dunder Mifflin',
     status: 'Pending',
-    email: 'abc@example.com',
+    email: 'michael@dundermifflin.com',
   },
   {
     id: 4,
     user: {
-      name: 'Courtney Henry',
+      name: 'Harvey Specter',
       imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbUkp52tGA2HShoBpp0mbbQyUuv491aIJEA&s',
     },
-    company: 'White Rose',
+    company: 'Pearson Specter',
     status: 'Completed',
-    email: 'abc@example.com',
+    email: 'harvey@pearsonspecter.com',
   },
   {
     id: 5,
     user: {
-      name: 'Michael Foster',
+      name: 'Cosmo Kramer',
       imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://static.wikia.nocookie.net/seinfeld/images/3/31/Kramer1.jpg',
     },
-    company: 'White Rose',
+    company: 'Kramerica Industries',
     status: 'Completed',
-    email: 'abc@example.com',
+    email: 'cosmo@kramericaindustries.com',
   },
   {
     id: 6,
     user: {
-      name: 'Courtney Henry',
+      name: 'Tony Stark',
       imageUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6P1ywRfbivgsj1qCX9uXPgEyB2OBoVkMh1A&s',
     },
-    company: 'White Rose',
+    company: 'Stark Industries',
     status: 'Completed',
-    email: 'abc@example.com',
+    email: 'tony@starkindustries.com',
   },
   {
     id: 7,
     user: {
-      name: 'Michael Foster',
+      name: 'Bruce Wayne',
       imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://pics.craiyon.com/2023-10-10/fc668145b2574c14b21f4f2b597da1e4.webp',
     },
-    company: 'White Rose',
+    company: 'Wayne Enterprises',
     status: 'Completed',
-    email: 'abc@example.com',
-  },
-  {
-    id: 8,
-    user: {
-      name: 'Whitney Francis',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    company: 'White Rose',
-    status: 'Completed',
-    email: 'abc@example.com',
+    email: 'bruce@wayneenterprises.com',
   },
 ];

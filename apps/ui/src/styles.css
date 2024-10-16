@@ -12,3 +12,24 @@
       src: url('./assets/Oately-Bold.woff2') format('woff2');
     }
   }
+
+  .scanning img {
+    min-height: 100%;
+    background:linear-gradient(0deg, rgba(255, 0, 150, 0.3), rgba(255, 0, 150, 0.3)), url(https://picsum.photos/id/1043/800/600);
+    background-size:cover;
+  }
+
+  .scanning::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 8px;
+    background-image: linear-gradient(to bottom,
+      rgba(255, 255, 255),
+      rgba(255, 0, 0));
+    animation: scanning 2s linear infinite;
+  }
+  
+  @keyframes scanning {
+      100% { transform: translate(0, 500px); }
+  }

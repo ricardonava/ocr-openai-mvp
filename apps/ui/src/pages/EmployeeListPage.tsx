@@ -68,7 +68,7 @@ export default function Example() {
                   <img
                     alt=""
                     src={item.user.imageUrl}
-                    className="w-8 h-8 bg-gray-800 rounded-full"
+                    className="w-12 h-12 bg-gray-800 rounded-full"
                   />
                   <div className="text-sm font-medium leading-6 text-white truncate">
                     {item.user.name}

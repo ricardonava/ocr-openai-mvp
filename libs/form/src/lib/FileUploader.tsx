@@ -1,5 +1,6 @@
 import { DragEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ImagePreview from './ImagePreview';
 
 type FormValues = {
   files: FileList | null;
@@ -18,6 +19,9 @@ export function FileUploader({
     });
 
   const [dragActive, setDragActive] = useState<boolean>(false);
+  const [currentlyPreviewing, setCurrentlyPreviewing] = useState<File | null>(
+    null
+  );
   const files = watch('files');
 
   const handleDrag = (event: DragEvent<HTMLDivElement>) => {
@@ -50,6 +54,10 @@ export function FileUploader({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <ImagePreview
+        file={currentlyPreviewing}
+        onClose={() => setCurrentlyPreviewing(null)}
+      />
       <div className="col-span-full">
         <label
           htmlFor="cover-photo"
@@ -71,7 +79,10 @@ export function FileUploader({
               <>
                 <div className="flex mt-4 text-white gap-x-4">
                   {Array.from(files).map((file, index) => (
-                    <div>
+                    <div
+                      className="cursor-pointer w-[250px] relative"
+                      onClick={() => setCurrentlyPreviewing(file)}
+                    >
                       <img src={URL.createObjectURL(file)} alt={file.name} />
                       <p key={index} className="text-xs">
                         {file.name}
