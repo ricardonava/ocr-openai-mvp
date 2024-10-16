@@ -84,15 +84,9 @@ export default function Example() {
               </td>
               <td className="py-4 pl-0 pr-4 text-sm leading-6 sm:pr-8 lg:pr-20">
                 <div className="flex items-center justify-end gap-x-2 sm:justify-start">
-                  <time
-                    dateTime={item.dateTime}
-                    className="text-gray-400 sm:hidden"
-                  >
-                    {item.date}
-                  </time>
                   <div
                     className={classNames(
-                      statuses[item.status],
+                      statuses[item.status as keyof typeof statuses],
                       'flex-none rounded-full p-1'
                     )}
                   >

@@ -12,7 +12,7 @@ export function FileUploader({
   onSubmit: (data: FormValues) => void;
   isLoading: boolean;
 }) {
-  const { register, setValue, watch, handleSubmit, reset } =
+  const { register, setValue, watch, handleSubmit, reset, getValues } =
     useForm<FormValues>({
       defaultValues: { files: null },
     });
@@ -46,6 +46,8 @@ export function FileUploader({
     reset();
   };
 
+  console.debug('getValues', getValues('files'));
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="col-span-full">
@@ -67,13 +69,18 @@ export function FileUploader({
           <div className="text-center">
             {files && files.length > 0 ? (
               <>
-                <div className="mt-4 text-white">
+                <div className="flex mt-4 text-white gap-x-4">
                   {Array.from(files).map((file, index) => (
-                    <p key={index}>{file.name}</p>
+                    <div>
+                      <img src={URL.createObjectURL(file)} alt={file.name} />
+                      <p key={index} className="text-xs">
+                        {file.name}
+                      </p>
+                    </div>
                   ))}
                 </div>
-                <div className="mt-4 flex justify-center space-x-4">
-                  <div className="mt-6 flex items-center justify-end gap-x-6">
+                <div className="flex justify-center mt-4 space-x-4">
+                  <div className="flex items-center justify-end mt-6 gap-x-6">
                     <button
                       type="button"
                       className="text-sm font-semibold leading-6 text-white disabled:opacity-40 disabled:cursor-not-allowed"
@@ -85,7 +92,7 @@ export function FileUploader({
                     <button
                       disabled={!files || files.length === 0 || isLoading}
                       type="submit"
-                      className="disabled:opacity-40 disabled:cursor-not-allowed rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                      className="px-3 py-2 text-sm font-semibold text-white bg-indigo-500 rounded-md shadow-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                     >
                       {!isLoading ? 'Upload Files' : 'Uploading...'}
                     </button>
@@ -94,10 +101,10 @@ export function FileUploader({
               </>
             ) : (
               <>
-                <div className="mt-4 flex text-sm leading-6 text-gray-400">
+                <div className="flex mt-4 text-sm leading-6 text-gray-400">
                   <label
                     htmlFor="files"
-                    className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
+                    className="relative font-semibold text-white bg-gray-900 rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
                   >
                     <span>Upload onboarding files</span>
                     <input

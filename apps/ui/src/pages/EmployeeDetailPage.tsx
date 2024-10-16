@@ -48,6 +48,8 @@ const EmployeeDetailPage = () => {
     rfc: uploadFileMutation.data?.data.results[0].rfc,
   };
 
+  console.debug('uploadFileMutation.progress', uploadFileMutation.progress);
+
   return (
     <div className="px-32 py-16 space-y-16">
       <FileUploader
