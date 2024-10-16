@@ -74,9 +74,9 @@ export function FileUploader({
                 <div className="flex mt-4 text-white gap-x-4">
                   {Array.from(files).map((file, index) => (
                     <div
-                      className="cursor-pointer w-[250px] bg-white items-center flex rounded-md"
+                      className="cursor-pointer w-[250px] bg-white items-center flex rounded-md overflow-hidden"
                       onClick={() => setCurrentlyPreviewing(file)}
-                      key={index}
+                      key={file.name}
                     >
                       <div>
                         <img src={URL.createObjectURL(file)} alt={file.name} />
